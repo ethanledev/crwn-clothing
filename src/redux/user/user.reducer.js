@@ -1,4 +1,9 @@
-import { SIGN_IN_SUCCESS, SIGN_IN_FAILURE } from "./user.types";
+import {
+  SIGN_IN_SUCCESS,
+  SIGN_IN_FAILURE,
+  SIGN_OUT_SUCCESS,
+  SIGN_OUT_FAILURE,
+} from "./user.types";
 
 const INITIAL_STATE = {
   currentUser: null,
@@ -13,6 +18,17 @@ const userReducer = (state = INITIAL_STATE, action) => {
         error: null,
       };
     case SIGN_IN_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
+      };
+    case SIGN_OUT_SUCCESS:
+      return {
+        ...state,
+        currentUser: null,
+        error: null,
+      };
+    case SIGN_OUT_FAILURE:
       return {
         ...state,
         error: action.payload,
