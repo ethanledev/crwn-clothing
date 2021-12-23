@@ -1,8 +1,7 @@
 import React from "react";
-import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
+import { useSelector, useDispatch } from "react-redux";
 import { selectCartItems } from "../../redux/cart/cart.selectors";
-import { withRouter } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { toggleCartHidden } from "../../redux/cart/cart.actions";
 import CustomButton from "../custom-button/custom-button.component";
 import CartItem from "../cart-item/cart-item.component";
@@ -12,30 +11,32 @@ import {
   EmptyMessage,
 } from "./cart-dropdown.styles";
 
-const CartDropdown = ({ cartItems, history, dispatch }) => (
-  <CartDropdownContainer>
-    <CartItems>
-      {cartItems.length ? (
-        cartItems.map((cartItem) => (
-          <CartItem key={cartItem.id} item={cartItem} />
-        ))
-      ) : (
-        <EmptyMessage>Your cart is empty</EmptyMessage>
-      )}
-    </CartItems>
-    <CustomButton
-      onClick={() => {
-        dispatch(toggleCartHidden());
-        history.push("/checkout");
-      }}
-    >
-      GO TO CHECKOUT
-    </CustomButton>
-  </CartDropdownContainer>
-);
+const CartDropdown = () => {
+  const cartItems = useSelector(selectCartItems);
+  const dispatch = useDispatch();
+  const history = useHistory();
 
-const mapStatesToProps = createStructuredSelector({
-  cartItems: selectCartItems,
-});
+  return (
+    <CartDropdownContainer>
+      <CartItems>
+        {cartItems.length ? (
+          cartItems.map((cartItem) => (
+            <CartItem key={cartItem.id} item={cartItem} />
+          ))
+        ) : (
+          <EmptyMessage>Your cart is empty</EmptyMessage>
+        )}
+      </CartItems>
+      <CustomButton
+        onClick={() => {
+          dispatch(toggleCartHidden());
+          history.push("/checkout");
+        }}
+      >
+        GO TO CHECKOUT
+      </CustomButton>
+    </CartDropdownContainer>
+  );
+};
 
-export default withRouter(connect(mapStatesToProps)(CartDropdown));
+export default CartDropdown;
