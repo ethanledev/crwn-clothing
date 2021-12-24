@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 export const Content = styled.div`
   height: 90px;
@@ -13,21 +13,17 @@ export const Content = styled.div`
   position: absolute;
 `;
 
-const getImageUrl = ({ imageUrl }) => css`
-  background-image: url(${imageUrl});
-`;
-
 export const BackgroundImage = styled.div`
   width: 100%;
   height: 100%;
   background-position: center;
   background-size: cover;
-  ${getImageUrl}
+  background-image: ${({ imageUrl }) => `url(${imageUrl})`};
 `;
 
 export const MenuItemContainer = styled.div`
+  height: ${({ size }) => (size ? "380px" : "240px")};
   min-width: 30%;
-  height: 240px;
   flex: 1 1 auto;
   display: flex;
   align-items: center;
@@ -59,6 +55,10 @@ export const MenuItemContainer = styled.div`
 
   &:last-child {
     margin-left: 7.5px;
+  }
+
+  @media screen and (max-width: 800px) {
+    height: 200px;
   }
 `;
 

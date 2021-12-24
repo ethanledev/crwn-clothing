@@ -4,6 +4,12 @@ export const SignInContainer = styled.div`
   width: 380px;
   display: flex;
   flex-direction: column;
+
+  @media screen and (max-width: 800px) {
+    form {
+      width: 90%;
+    }
+  }
 `;
 
 export const Title = styled.h2`
