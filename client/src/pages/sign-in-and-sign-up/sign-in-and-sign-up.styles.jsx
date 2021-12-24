@@ -8,5 +8,8 @@ export const SignInAndSignUpPageContainer = styled.div`
 
   @media screen and (max-width: 800px) {
     flex-direction: column;
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
   }
 `;
