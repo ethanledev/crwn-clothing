@@ -6,8 +6,10 @@ export const SignUpContainer = styled.div`
   width: 380px;
 
   @media screen and (max-width: 800px) {
-    form {
-      width: 90%;
+    width: 90%;
+
+    button {
+      width: 100%;
     }
   }
 `;

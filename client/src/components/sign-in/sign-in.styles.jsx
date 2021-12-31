@@ -6,9 +6,7 @@ export const SignInContainer = styled.div`
   flex-direction: column;
 
   @media screen and (max-width: 800px) {
-    form {
-      width: 90%;
-    }
+    width: 90%;
   }
 `;
 
@@ -19,4 +17,12 @@ export const Title = styled.h2`
 export const Buttons = styled.div`
   display: flex;
   justify-content: space-between;
+
+  @media screen and (max-width: 420px) {
+    flex-direction: column;
+
+    button {
+      margin: 5px 0;
+    }
+  }
 `;

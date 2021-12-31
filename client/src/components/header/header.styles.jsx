@@ -41,4 +41,9 @@ export const OptionsContainer = styled.div`
 export const OptionLink = styled(Link)`
   padding: 10px 15px;
   cursor: pointer;
+
+  @media screen and (max-width: 375px) {
+    padding: 10px 10px;
+    font-size: 14px;
+  }
 `;
