@@ -4,23 +4,23 @@ import {
   selectCartItems,
   selectCartTotal,
 } from "../../redux/cart/cart.selectors";
-import CheckoutItem from "../../components/checkout-item/checkout-item.component";
+import CartItem from "../../components/cart-item/cart-item.component";
 import StripeCheckoutButton from "../../components/stripe-button/stripe-button.component";
 import {
-  CheckoutPageContainer,
-  CheckoutHeader,
+  CartPageContainer,
+  CartHeader,
   HeaderBlock,
   Total,
   TestWarning,
-} from "./checkout.styles";
+} from "./cart.styles";
 
-const CheckoutPage = () => {
+const CartPage = () => {
   const cartItems = useSelector(selectCartItems);
   const total = useSelector(selectCartTotal);
 
   return (
-    <CheckoutPageContainer>
-      <CheckoutHeader>
+    <CartPageContainer>
+      <CartHeader>
         <HeaderBlock>
           <span>Products</span>
         </HeaderBlock>
@@ -36,9 +36,9 @@ const CheckoutPage = () => {
         <HeaderBlock>
           <span>Remove</span>
         </HeaderBlock>
-      </CheckoutHeader>
+      </CartHeader>
       {cartItems.map((cartItem) => (
-        <CheckoutItem key={cartItem.id} cartItem={cartItem} />
+        <CartItem key={cartItem.id} cartItem={cartItem} />
       ))}
       <Total>
         <span>TOTAL: ${total}</span>
@@ -49,8 +49,8 @@ const CheckoutPage = () => {
         4242 4242 4242 4242 - Exp: 01/25 - CVV 123
       </TestWarning>
       <StripeCheckoutButton price={total} />
-    </CheckoutPageContainer>
+    </CartPageContainer>
   );
 };
 
-export default CheckoutPage;
+export default CartPage;
