@@ -1,59 +1,20 @@
-import React, { useState } from "react";
-import StripeCheckout from "react-stripe-checkout";
-import axios from "axios";
-import { clearCart } from "../../redux/cart/cart.actions";
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
+import React from "react";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import { StripeButton } from "./stripe-button.styles";
 
-const StripeCheckoutButton = ({ price }) => {
-  const [checkOutSuccess, setCheckoutSuccess] = useState(false);
-  const dispatch = useDispatch();
-  const priceForStripe = price * 100;
-  const publishableKey =
-    "pk_test_51JXxLUGgZjV4jYKFcFdPhfcgG3tUl2zTDtEgraELAxHrJz4edHitcuh8eXnV3oYnHcyKLVRmdzHKHMLOjqzNvzmP00xJGFdwAu";
+const publishableKey =
+  "pk_test_51JXxLUGgZjV4jYKFcFdPhfcgG3tUl2zTDtEgraELAxHrJz4edHitcuh8eXnV3oYnHcyKLVRmdzHKHMLOjqzNvzmP00xJGFdwAu";
+const stripePromise = loadStripe(publishableKey);
 
-  useEffect(() => {
-    console.log("checkout success");
-    if (checkOutSuccess) {
-      dispatch(clearCart());
-      setCheckoutSuccess(false);
-    }
-  }, [checkOutSuccess, dispatch]);
-
-  const onToken = (token) => {
-    axios({
-      url: "payment",
-      method: "post",
-      data: {
-        amount: priceForStripe,
-        token,
-      },
-    })
-      .then((response) => {
-        setCheckoutSuccess(true);
-        alert("Payment successful");
-      })
-      .catch((error) => {
-        console.log("Payment error: ", JSON.parse(error));
-        alert(
-          "There was an issue with your payment. Please make sure you use the provided credit card."
-        );
-      });
+const StripeCheckoutButton = () => {
+  const options = {
+    clientSecret: process.env.REACT_APP_STRIPE_SECRET_KEY,
   };
 
-  return (
-    <StripeCheckout
-      label="Pay Now"
-      name="CRWN Clothing Ltd."
-      billingAddress
-      shippingAddress
-      description={`Yout total is $${price}`}
-      amount={priceForStripe}
-      panelLabel="Pay Now"
-      token={onToken}
-      stripeKey={publishableKey}
-    />
-  );
+  console.log(options);
+
+  return <StripeButton>PAY NOW</StripeButton>;
 };
 
 export default StripeCheckoutButton;
