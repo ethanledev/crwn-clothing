@@ -14,12 +14,14 @@ const CartPage = lazy(() => import("./pages/cart/cart.component"));
 const SignInAndSignUpPage = lazy(() =>
   import("./pages/sign-in-and-sign-up/sign-in-and-sign-up.component")
 );
+const CheckoutPage = lazy(() => import("./pages/checkout/checkout.component"));
 
 const App = () => {
   const currentUser = useSelector(selectCurrentUser);
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log("Check user session");
     dispatch(checkUserSession());
   }, [dispatch]);
 
@@ -33,6 +35,7 @@ const App = () => {
             <Route exact path="/" component={HomePage} />
             <Route path="/shop" component={ShopPage} />
             <Route exact path="/cart" component={CartPage} />
+            <Route exact path="/checkout" component={CheckoutPage} />
             <Route
               exact
               path="/signin"

@@ -20,10 +20,7 @@ export function* createPaymentIntent(action) {
 }
 
 export function* createPaymentIntentStart() {
-  const action = yield takeLatest(
-    CREAT_PAYMENT_INTENT_START,
-    createPaymentIntent
-  );
+  yield takeLatest(CREAT_PAYMENT_INTENT_START, createPaymentIntent);
 }
 
 export function* checkoutSagas() {

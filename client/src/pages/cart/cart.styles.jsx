@@ -6,7 +6,7 @@ export const CartPageContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 50px auto 0;
+  margin: 50px auto;
 
   button {
     margin-left: auto;
@@ -42,9 +42,39 @@ export const Total = styled.div`
   font-size: 36px;
 `;
 
-export const TestWarning = styled.div`
-  text-align: center;
-  margin-top: 40px;
-  font-size: 24px;
-  color: red;
+export const CheckoutButton = styled.div`
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  padding: 1px 5px;
+  font-size: 25px;
+  margin-top: 20px;
+  cursor: pointer;
+
+  :hover {
+    background-color: black;
+    color: white;
+  }
+`;
+
+export const CheckoutSpinner = styled.div`
+  display: inline-block;
+  width: 34px;
+  height: 34px;
+  margin-top: 20px;
+  border: 3px solid rgba(195, 195, 195, 0.6);
+  border-radius: 50%;
+  border-top-color: #636767;
+  animation: spin 1s ease-in-out infinite;
+  -webkit-animation: spin 1s ease-in-out infinite;
+  @keyframes spin {
+    to {
+      -webkit-transform: rotate(360deg);
+    }
+  }
+  @-webkit-keyframes spin {
+    to {
+      -webkit-transform: rotate(360deg);
+    }
+  }
 `;
