@@ -5,6 +5,7 @@ import CheckoutForm from "../../components/checkout-form/checkout-form.component
 import { useDispatch, useSelector } from "react-redux";
 import { resetFetchingStatus } from "../../redux/checkout/checkout.actions";
 import { TestWarning } from "./checkout.styles";
+import { useHistory } from "react-router-dom";
 
 const publishableKey =
   "pk_test_51JXxLUGgZjV4jYKFcFdPhfcgG3tUl2zTDtEgraELAxHrJz4edHitcuh8eXnV3oYnHcyKLVRmdzHKHMLOjqzNvzmP00xJGFdwAu";
@@ -15,20 +16,29 @@ const CheckoutPage = () => {
   const clientSecret = useSelector((state) => state.checkout.clientSecret);
   const options = { clientSecret };
   const dispatch = useDispatch();
+  const history = useHistory();
+
+  useEffect(() => {
+    if (!clientSecret) {
+      history.push("/cart");
+    }
+  }, [clientSecret, history]);
 
   useEffect(() => {
     dispatch(resetFetchingStatus());
 
-    return async () => {
-      console.log("leave /checkout");
-      const paymentIntentId = clientSecret.split("_secret_")[0];
-      await fetch("/cancel-payment-intent", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ paymentIntentId }),
-      }).then(() => {
-        console.log("Successfully canceled payment");
-      });
+    return () => {
+      if (clientSecret) {
+        console.log("leave /checkout");
+        const paymentIntentId = clientSecret.split("_secret_")[0];
+        fetch("/cancel-payment-intent", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ paymentIntentId }),
+        }).then(() => {
+          console.log("Successfully canceled payment");
+        });
+      }
     };
   }, [dispatch, clientSecret]);
 
