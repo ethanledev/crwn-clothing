@@ -30,7 +30,6 @@ app.listen(port, (error) => {
 
 app.post("/create-payment-intent", async (req, res) => {
   const { amount } = req.body;
-  console.log(amount);
   // Create a PaymentIntent with the order amount and currency
   const paymentIntent = await stripe.paymentIntents.create({
     amount,
@@ -43,4 +42,12 @@ app.post("/create-payment-intent", async (req, res) => {
   res.send({
     clientSecret: paymentIntent.client_secret,
   });
+});
+
+app.post("/cancel-payment-intent", async (req, res) => {
+  const { paymentIntentId } = req.body;
+  console.log(paymentIntentId);
+  await stripe.paymentIntents.cancel(paymentIntentId);
+
+  res.send(200);
 });

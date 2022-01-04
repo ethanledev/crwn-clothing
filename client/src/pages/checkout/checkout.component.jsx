@@ -19,10 +19,18 @@ const CheckoutPage = () => {
   useEffect(() => {
     dispatch(resetFetchingStatus());
 
-    return () => {
-      console.log("Leave /checkout");
+    return async () => {
+      console.log("leave /checkout");
+      const paymentIntentId = clientSecret.split("_secret_")[0];
+      await fetch("/cancel-payment-intent", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ paymentIntentId }),
+      }).then(() => {
+        console.log("Successfully canceled payment");
+      });
     };
-  }, [dispatch]);
+  }, [dispatch, clientSecret]);
 
   return (
     <Elements stripe={stripePromise} options={options}>
