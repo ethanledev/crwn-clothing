@@ -22,11 +22,7 @@ const CheckoutPage = () => {
     if (!clientSecret) {
       history.push("/cart");
     }
-<<<<<<< HEAD
   }, [clientSecret, history]);
-=======
-  }, []);
->>>>>>> ac3270d165c6e92f4f87258509102cdf207ea9e0
 
   useEffect(() => {
     dispatch(resetFetchingStatus());
